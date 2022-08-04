@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Budget data</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+      
+      <form method="GET">
+      {% csrf_token %}
+      {% for record in sorted_records%}
+      <ul>
+        <li>
+          
+          {%if record and record.coming_or_spending == False%}
+          <a href="/details/{{record.id}}" role="button" class="outline"
+            >ID:{{record.id}}  Приход {{record.name}}  категория {{record.category}}  сумма {{record.money}} Дата {{record.created}}</a>         
+            {% else %}
+          <a href="/details/{{record.id}}" role="button" class="outline"
+            >ID:{{record.id}}  Трата {{record.name}}  категория {{record.category}}  сумма {{record.money}} Дата {{record.created}}</a>       
+          
+        
+          {% endif %}
+        </li>
+      </ul>     
+     
+      {% endfor %}
+      Общие траты:{{spending}}, Общий приход:{{coming}},
+
+      </form> 
+    </main>
+  </body>
+</html>
